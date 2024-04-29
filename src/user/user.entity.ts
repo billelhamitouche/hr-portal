@@ -1,5 +1,6 @@
-import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, UpdateDateColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
+import { Job } from "src/jobs/jobs.entity";
 
 @Entity('user')
 export class User extends BaseEntity{
@@ -44,6 +45,10 @@ export class User extends BaseEntity{
   // Automatically updated to the current date and time whenever the entity is updated
      @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
      updatedAt: Date;
+
+
+    @ManyToOne(()=>  Job, (job)=> job.users)
+    job: Job;
 
     @BeforeInsert()
     @BeforeUpdate()
