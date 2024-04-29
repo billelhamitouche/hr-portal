@@ -1,8 +1,9 @@
 import { BaseEntity,BeforeUpdate,Column,Entity, OneToMany } from "typeorm";
 import * as bcrypt from 'bcrypt';
+import { Job } from "src/jobs/jobs.entity";
 
 @Entity('company')
-export class company extends BaseEntity {
+export class Company extends BaseEntity {
 
     @Column()
     name : string;
