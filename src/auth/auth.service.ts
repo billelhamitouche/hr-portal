@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
 import * as bcrypt from 'bcrypt';
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService{
-    constructor(private readonly userService : UserService){}
+    constructor(private userService : UserService, private jwtService: JwtService ){}
 
     async validateUserCredentiels(email: string , password: string): Promise<any>{
     
@@ -26,5 +27,13 @@ export class AuthService{
 
     }
 
-    createToken 
+     createToken(user :any){
+      
+      return this.jwtService.sign({
+        name: user.name,
+        userId: user.id,
+      })
+
+
+    }
 }
